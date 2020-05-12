@@ -61,7 +61,9 @@ input[type=text]:not(.browser-default):focus:not([readonly]) + label {
   font-size: 1.4rem;
 }
 .temperatura {
-  font-size: 4rem!important
+  font-size: 4rem!important;
+  color: #03a9f4;
+  
 }
 .temperatura span {
   font-size: 2rem!important;

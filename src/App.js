@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import Header from './components/Header';
 import Formulario from './components/Formulario';
+import Clima from './components/Clima';
 
 function App() {
   //
@@ -11,6 +12,8 @@ function App() {
   //
   const [consultar, guardarConsultar] = useState(false);
   //
+  const [resultado, guadarResultado] = useState({});
+  //
   const { ciudad, pais } = busqueda;
   //
   useEffect(() => {
@@ -20,7 +23,8 @@ function App() {
         const url = `http://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}`;
         const respuesta = await fetch(url);
         const resultado = await respuesta.json();
-        console.log(resultado);
+        guadarResultado(resultado);
+        guardarConsultar(false);
       }
     };
     consultarAPI();
@@ -39,7 +43,9 @@ function App() {
                 guardarConsultar={guardarConsultar}
               />
             </div>
-            <div className="col m6 s12">2</div>
+            <div className="col m6 s12">
+              <Clima resultado={resultado} />
+            </div>
           </div>
         </div>
       </div>

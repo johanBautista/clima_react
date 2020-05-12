@@ -9,6 +9,8 @@ const Formulario = () => {
   //
   const { ciudad, pais } = busqueda;
   //
+  const [error, guardarError] = useState(false);
+  //
   const handleChange = (e) => {
     //
     guardarBusqueda({
@@ -16,9 +18,21 @@ const Formulario = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (ciudad.trim() === '' || pais.trim() === '') {
+      guardarError(true);
+      return;
+    }
+    guardarError(false);
+  };
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
+        {error ? (
+          <p className="error red darken-4">Todos los campos Obligatorios</p>
+        ) : null}
         <div className="input-field col s12">
           <input
             type="text"
@@ -41,6 +55,14 @@ const Formulario = () => {
             <option value="PE">Perú</option>
           </select>
           <label htmlFor="pais">Pais:</label>
+        </div>
+        <div className="input-field col s12">
+          <button
+            type="submit"
+            className="waves-effect waves-light btn-large btn-block yellow accent-4 col s12"
+          >
+            Buscar Clima
+          </button>
         </div>
       </form>
     </div>
